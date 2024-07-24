@@ -17,6 +17,7 @@ export default {
       path: mdiEyeOutline,
       selectedAreaType: 'Todos los tipos de área',
       selectedUseType: 'Todos los tipos de uso',
+      
       data: [
         {
           idSpace: "11111111",
@@ -32,7 +33,7 @@ export default {
           description: "Espacio para llevar a cabo reuniones",
           areaType: "Área de trabajo",
           state: "En uso",
-          useType: "Grupal"
+          useType: "Individual"
         },
         {
           idSpace: "11111111",
@@ -40,7 +41,7 @@ export default {
           description: "Espacio para llevar a cabo reuniones",
           areaType: "Área de trabajo",
           state: "En uso",
-          useType: "Grupal"
+          useType: "Individual"
         },
         {
           idSpace: "11111111",
@@ -107,7 +108,13 @@ export default {
         :flag="false"
       />
     </div>
+    <div class="action-modal-buttons">
+      <a href="/spaces/myreservations">
+              <button>Ver mis reservas</button>
+            </a>
+    </div>
   </div>
+  
 </template>
 
 <style scoped lang="scss">

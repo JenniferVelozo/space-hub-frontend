@@ -107,6 +107,11 @@ export default {
         :flag="true"
       />
     </div>
+    <div class="action-modal-buttons">
+      <a href="/spaces">
+        <button>Volver</button>
+      </a>
+    </div>
   </div>
 </template>
 

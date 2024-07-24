@@ -22,7 +22,7 @@
       <slot name="footer"></slot>
     </div>
   </div>
-  <ReservationModal :showModal="showReservationModal" :idSpace="idSpace" @closeReservationModal="closeReservationModal"> </ReservationModal>
+  <ReservationModal :showModal="showReservationModal" :useType="useType" :idSpace="idSpace" @closeReservationModal="closeReservationModal"> </ReservationModal>
 </template>
 
 <script>
