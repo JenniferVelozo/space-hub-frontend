@@ -147,5 +147,6 @@ select {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  color: black;
 }
 </style>

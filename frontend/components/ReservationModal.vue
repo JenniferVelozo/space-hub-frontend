@@ -4,13 +4,13 @@
         <div class="div-content">
           <span class="close-icon" @click="closeModal">x</span>
           <div class="contenedor-modal">
-            <span class="modal-text" style="display: block; text-align: center;">Hacer una reserva</span>
+            <h2 class="modal-text" style="display: block; text-align: center;">HACER UNA RESERVA</h2>
             <span>Seleccione día y fecha de inicio</span>
             <div class="input-container" style="display: flex; justify-content: center; margin: 20px 0;">
               <input type="datetime-local" v-model="startDateTime" @change="updateEndDateTime" />
             </div>
   
-            <span>Seleccione día y fecha de salida {{ useType }}</span>
+            <span>Seleccione día y fecha de salida</span>
             <div class="input-container" style="display: flex; justify-content: center; margin: 20px 0;">
               <input type="datetime-local" v-model="endDateTime" />
             </div>
