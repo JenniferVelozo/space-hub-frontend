@@ -13,7 +13,8 @@
     </div>
 
     <div class="action-modal-buttons">
-      <button class="button" @click="openReservationModal"> Reservar</button>
+      <button v-if="flag === false" class="button" @click="openReservationModal"> Reservar</button>
+      <button v-if="flag === true"> Anular </button>
     </div>    
       
     
@@ -33,6 +34,7 @@ export default {
     areaType: String,
     state: String,
     useType: String,
+    flag: Boolean,
   },
   data() {
     return {
@@ -41,7 +43,6 @@ export default {
   },
   methods:{
     openReservationModal() {
-      console.log("ENTRA?")
       this.showReservationModal = true;
     },
     closeReservationModal() {

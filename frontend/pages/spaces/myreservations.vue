@@ -79,7 +79,7 @@ export default {
 
 <template>
   <div class="container-login" style="margin-top: 0px;">
-    <h1 class="h1 header">ESPACIOS DISPONIBLES</h1>
+    <h1 class="h1 header">MIS RESERVAS </h1>
     <div class="filters">
       <select v-model="selectedAreaType">
         <option value="Todos los tipos de área">Todos los tipos de área</option>
@@ -104,7 +104,7 @@ export default {
         :areaType="item.areaType"
         :state="item.state"
         :useType="item.useType"
-        :flag="false"
+        :flag="true"
       />
     </div>
   </div>
