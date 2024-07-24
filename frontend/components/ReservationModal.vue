@@ -4,7 +4,7 @@
         <div class="div-content">
           <span class="close-icon" @click="closeModal">x</span>
           <div class="contenedor-modal">
-            <h2 class="modal-text" style="display: block; text-align: center;">HACER UNA RESERVA</h2>
+            <h3 style="display: block; text-align: center;">HACER UNA RESERVA</h3>
             <span>Seleccione día y fecha de inicio</span>
             <div class="input-container" style="display: flex; justify-content: center; margin: 20px 0;">
               <input type="datetime-local" v-model="startDateTime" @change="updateEndDateTime" />
@@ -28,7 +28,8 @@
                   </li>
                 </ul>
               </div>
-              <h3>Participantes seleccionados:</h3>
+              <br>
+              <p>Participantes seleccionados:</p>
               <ul>
                 <li v-for="user in selectedParticipants" :key="user.idUSer">
                   {{ user.email }} - {{ user.name }}
@@ -43,7 +44,7 @@
             <div class="action-modal-buttons">
               <button @click="reservarEspacio">Reservar espacio</button>
               <button @click="closeModal">Cancelar</button>
-              <a href="/mis-reservas">
+              <a href="/spaces/myreservations">
                 <button>Ver mis reservas</button>
               </a>
             </div>
@@ -89,21 +90,39 @@
       }
     },
     methods: {
-      closeModal() {
+        async getUsers() {
+            try{
+                const baseUrl = useRuntimeConfig().public.baseUrl;
+                const { $userService } = useNuxtApp()
+                let response;
+                response = await userService.getUsers(this.id_cc);
+                console.log("La response es: ", response)
+                this.users = response.users
+            }catch (error){
+                this.$toast.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Error al cargar los usuarios. Intente nuevamente.',
+                life: 5000,
+                })
+                console.error('Error al cargar los usuarios:', error);
+            }
+        },
+        closeModal() {
         this.$emit("closeReservationModal");
-      },
-      updateEndDateTime() {
+        },
+        updateEndDateTime() {
         if (this.startDateTime) {
-          const startDate = new Date(this.startDateTime);
-          if (this.isValidTime(startDate)) {
+            const startDate = new Date(this.startDateTime);
+            if (this.isValidTime(startDate)) {
             console.log("La fecha de entrada es: ", startDate.getTime());
             const endDate = new Date(startDate.getTime() + 4 * 60 * 60 * 1000); // 4 horas después
             this.endDateTime = this.formatDateTimeLocal(endDate);
-          } else {
+            } else {
             this.errorMessage = 'La hora de inicio debe estar entre las 8 am y las 8 pm.';
             this.startDateTime = null;
             this.endDateTime = null;
-          }
+            }
         }
       },
       isValidTime(date) {
@@ -160,6 +179,9 @@
           participant => participant.idUSer !== user.idUSer
         );
       }
+    },
+    async mounted() {
+        await this.getUsers();
     }
   };
   </script>

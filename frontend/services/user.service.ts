@@ -1,11 +1,10 @@
 import { Service } from './service'
 
 export class UserService extends Service {
-	async getUsersPaginated(params: { page: number; pageSize: number; search: string; role: string, id_cc: string}) {
+	async getUsers() {
         return this.fetch({
         URL: '/users/',
-        method: 'get',
-        params,
+        method: 'get'
         })
     }
 	async checkRUTRepeated(rut: string) {
