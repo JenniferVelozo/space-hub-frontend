@@ -3,16 +3,10 @@ import { Service } from './service'
 export class UserService extends Service {
 	async getUsers() {
         return this.fetch({
-        URL: '/users/',
+        URL: '/user/',
         method: 'get'
         })
     }
-	async checkRUTRepeated(rut: string) {
-		return this.fetch({
-		URL: `/users/checkRUT/${rut}`,
-		method: 'get',
-		})
-	}
 	async checkEmailRepeated(email: string) {
 		return this.fetch({
 		URL: `/user/checkEmailRepeated/${email}`,

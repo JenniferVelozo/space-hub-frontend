@@ -67,6 +67,9 @@
     },
     data() {
       return {
+
+        /*
+        Datos de prueba
         users: [
           { idUSer: "1", name: "Jennifer", email: "jennifer@test.cl" },
           { idUSer: "2", name: "Alexis", email: "alexis@test.cl" },
@@ -74,7 +77,7 @@
           { idUSer: "4", name: "María", email: "maria@test.cl" },
           { idUSer: "5", name: "Carlos", email: "carlos@test.cl" },
           { idUSer: "6", name: "Laura", email: "laura@test.cl" }
-        ],
+        ],*/
         startDateTime: null,
         endDateTime: null,
         errorMessage: '',
@@ -92,12 +95,11 @@
     methods: {
         async getUsers() {
             try{
-                const baseUrl = useRuntimeConfig().public.baseUrl;
                 const { $userService } = useNuxtApp()
                 let response;
-                response = await userService.getUsers(this.id_cc);
+                response = await $userService.getUsers();
                 console.log("La response es: ", response)
-                this.users = response.users
+                this.users = response
             }catch (error){
                 this.$toast.add({
                 severity: 'error',
@@ -113,6 +115,7 @@
         },
         updateEndDateTime() {
         if (this.startDateTime) {
+            console.log("la fecha de inicio: ",this.startDateTime)
             const startDate = new Date(this.startDateTime);
             if (this.isValidTime(startDate)) {
             console.log("La fecha de entrada es: ", startDate.getTime());
@@ -139,6 +142,8 @@
         return `${year}-${month}-${day}T${hours}:${minutes}`;
       },
       reservarEspacio() {
+        console.log("la fecha de inicio: ",this.startDateTime)
+        console.log("la fecha de fin: ",this.endDateTime)
         if (!this.startDateTime || !this.endDateTime) {
           this.errorMessage = 'Por favor seleccione las fechas y horas de entrada y salida.';
           return;
@@ -181,7 +186,7 @@
       }
     },
     async mounted() {
-       // await this.getUsers();
+       await this.getUsers();
     }
   };
   </script>
