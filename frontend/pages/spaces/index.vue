@@ -17,7 +17,8 @@ export default {
       path: mdiEyeOutline,
       selectedAreaType: 'Todos los tipos de área',
       selectedUseType: 'Todos los tipos de uso',
-      
+      data: [],
+      /*
       data: [
         {
           idSpace: "11111111",
@@ -51,7 +52,7 @@ export default {
           state: "En uso",
           useType: "Grupal"
         },
-      ],
+      ],*/
     };
   },
   computed: {
@@ -69,8 +70,8 @@ export default {
     async getSpaces() {
       const { $spaceService } = useNuxtApp();
       let response;
-      response = await $spaceService.getSpaces("Disponible")
-      console.log("Los disponibles son: ", response)
+      response = await $spaceService.getAllSpaces()
+      console.log("Los espacios son: ", response)
       this.data = response;
       console.log("Espacios desde el back: ", this.data)
     }
@@ -99,7 +100,7 @@ export default {
       <CardSpace
         v-for="(item, index) in filteredData"
         :key="index"
-        :idSpace="item.idSpace"
+        :idSpace="item._id"
         :name="item.name"
         :description="item.description"
         :areaType="item.areaType"

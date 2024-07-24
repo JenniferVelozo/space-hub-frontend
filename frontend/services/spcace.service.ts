@@ -7,4 +7,10 @@ export class SpaceService extends Service {
 		method: 'get',
 		})
 	}
+    async getAllSpaces() {
+		return this.fetch({
+        URL: `/space`,
+		method: 'get',
+		})
+	}
 }

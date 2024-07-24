@@ -6,7 +6,7 @@
     <div class="card-body">
       <span>Tipo de área: {{ areaType }}</span>
       <br>
-      <span>Descripción: {{ description }}</span>
+      <!-- <span>Descripción: {{ description }}</span> -->
       <br>
       <span>Tipo de uso: {{ useType }}</span>
       <br>
