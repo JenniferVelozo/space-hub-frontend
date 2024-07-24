@@ -15,8 +15,11 @@ export default {
   data() {
     return {
       path: mdiEyeOutline,
+      selectedAreaType: 'Todos los tipos de área',
+      selectedUseType: 'Todos los tipos de uso',
       data: [
         {
+          idSpace: "11111111",
           name: "Sala de reuniones 1",
           description: "Espacio para llevar a cabo reuniones",
           areaType: "Área de trabajo",
@@ -24,6 +27,7 @@ export default {
           useType: "Grupal"
         },
         {
+          idSpace: "11111111",
           name: "Sala de reuniones 2",
           description: "Espacio para llevar a cabo reuniones",
           areaType: "Área de trabajo",
@@ -31,6 +35,7 @@ export default {
           useType: "Grupal"
         },
         {
+          idSpace: "11111111",
           name: "Sala de reuniones 3",
           description: "Espacio para llevar a cabo reuniones",
           areaType: "Área de trabajo",
@@ -38,6 +43,7 @@ export default {
           useType: "Grupal"
         },
         {
+          idSpace: "11111111",
           name: "Sala de reuniones 4",
           description: "Espacio para llevar a cabo reuniones",
           areaType: "Área de trabajo",
@@ -47,15 +53,25 @@ export default {
       ],
     };
   },
-
+  computed: {
+    filteredData() {
+      return this.data.filter(item => {
+        return (this.selectedAreaType === 'Todos los tipos de área' || item.areaType === this.selectedAreaType) &&
+               (this.selectedUseType === 'Todos los tipos de uso' || item.useType === this.selectedUseType);
+      });
+    }
+  },
   async mounted() {
-    await this.getResources();
+    await this.getSpaces();
   },
   methods: {
-    async getResources() {
-      const { $resourceService } = useNuxtApp();
+    async getSpaces() {
+      const { $spaceService } = useNuxtApp();
       let response;
-      // Aquí iría la lógica para obtener los recursos desde el servicio
+      response = await $spaceService.getSpaces("Disponible")
+      console.log("Los disponibles son: ", response)
+      this.data = response;
+      console.log("Espacios desde el back: ", this.data)
     }
   },
 }
@@ -64,10 +80,25 @@ export default {
 <template>
   <div class="container-login" style="margin-top: 0px;">
     <h1 class="h1 header">ESPACIOS DISPONIBLES</h1>
+    <div class="filters">
+      <select v-model="selectedAreaType">
+        <option value="Todos los tipos de área">Todos los tipos de área</option>
+        <option value="Área de trabajo">Área de trabajo</option>
+        <option value="Área de primera necesidad">Área de primera necesidad</option>
+        <option value="Área de recreación">Área de recreación</option>
+      </select>
+      <select v-model="selectedUseType">
+        <option value="Todos los tipos de uso">Todos los tipos de uso</option>
+        <option value="Grupal">Grupal</option>
+        <option value="Individual">Individual</option>
+      </select>
+    </div>
+
     <div class="card-container">
       <CardSpace
-        v-for="(item, index) in data"
+        v-for="(item, index) in filteredData"
         :key="index"
+        :idSpace="item.idSpace"
         :name="item.name"
         :description="item.description"
         :areaType="item.areaType"
@@ -80,6 +111,16 @@ export default {
 
 <style scoped lang="scss">
 @import '../assets/style.scss';
+
+.filters {
+  margin: 10px 0;
+  display: flex;
+  gap: 10px;
+}
+
+select {
+  padding: 5px;
+}
 
 .h1 {
   font-size: 3rem;

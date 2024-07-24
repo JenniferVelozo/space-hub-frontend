@@ -141,7 +141,7 @@ export default {
 
 <template>
   <div class="container-login">
-    <h1 class="h1 header">SISTEMA DE RESERVAS</h1>
+    <h1 class="h1 header">BIENVENIDO A SPACEHUB</h1>
     <h2 class="h2 titulo">REGISTRO DE USUARIO</h2>
     <svg-icon type="mdi" :path="path2" width="100" height="100"></svg-icon>
     <div class="container-input-login">
